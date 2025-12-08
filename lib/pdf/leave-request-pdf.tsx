@@ -46,25 +46,27 @@ const styles = StyleSheet.create({
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderColor: "#000",
-        padding: 3,
+        padding: 1,
+        paddingLeft: 4,
         fontSize: 8,
     },
     cellHeader: {
         borderRightWidth: 1,
         borderBottomWidth: 1,
         borderColor: "#000",
-        padding: 3,
+        padding: 1,
         fontSize: 9,
+        paddingLeft: 4,
         fontFamily: "Helvetica-Bold",
     },
     cellNoBorder: {
-        padding: 3,
+        padding: 1,
+        paddingLeft: 4,
         fontSize: 8,
     },
     signatureName: {
-        fontFamily: "Helvetica-Bold",
-        textDecoration: "underline",
-        fontSize: 9,
+        fontFamily: "Helvetica",
+        fontSize: 8,
     },
     notes: {
         marginTop: 8,
@@ -165,25 +167,28 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                             <View style={[styles.cellHeader, { width: "100%" }]}><Text>II.    JENIS CUTI YANG DIAMBIL **</Text></View>
                         </View>
                         <View style={styles.tableRow}>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>1.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>1.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Tahunan</Text></View>
                             <View style={[styles.cell, { width: "10%", textAlign: "center" }]}><Text>{data.leaveType === "Cuti Tahunan" ? "\u2713" : ""}</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>2.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>2.</Text></View>
                             <View style={[styles.cell, { width: "45%" }]}><Text>Cuti Besar</Text></View>
+                            <View style={[styles.cell, { width: "10%", textAlign: "center" }]}><Text>{data.leaveType === "Cuti Besar" ? "\u2713" : ""}</Text></View>
                         </View>
                         <View style={styles.tableRow}>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>3.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>3.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Sakit</Text></View>
                             <View style={[styles.cell, { width: "10%", textAlign: "center" }]}><Text>{data.leaveType === "Cuti Sakit" ? "\u2713" : ""}</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>4.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>4.</Text></View>
                             <View style={[styles.cell, { width: "45%" }]}><Text>Cuti Melahirkan</Text></View>
+                            <View style={[styles.cell, { width: "10%", textAlign: "center" }]}><Text>{data.leaveType === "Cuti Melahirkan" ? "\u2713" : ""}</Text></View>
                         </View>
                         <View style={styles.tableRow}>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>5.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>5.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Karena Alasan Penting</Text></View>
                             <View style={[styles.cell, { width: "10%", textAlign: "center" }]}><Text>{data.leaveType === "Cuti Karena Alasan Penting" ? "\u2713" : ""}</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>6.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>6.</Text></View>
                             <View style={[styles.cell, { width: "45%" }]}><Text>Cuti di Luar Tanggungan Negara</Text></View>
+                            <View style={[styles.cell, { width: "10%", textAlign: "center" }]}><Text>{data.leaveType === "Cuti di Luar Tanggungan Negara" ? "\u2713" : ""}</Text></View>
                         </View>
                     </View>
                 </View>
@@ -231,37 +236,37 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                             <View style={[styles.cell, { width: "40%" }]}><Text></Text></View>
                         </View>
                         <View style={styles.tableRow}>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>1.</Text></View>
-                            <View style={[styles.cell, { width: "55%", fontFamily: "Helvetica-Bold" }]}><Text>Cuti Tahunan</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>2.</Text></View>
-                            <View style={[styles.cell, { width: "35%", fontFamily: "Helvetica-Bold" }]}><Text>Cuti Besar</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>1.</Text></View>
+                            <View style={[styles.cell, { width: "55%" }]}><Text>Cuti Tahunan</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>2.</Text></View>
+                            <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Besar</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>Tahun</Text></View>
                             <View style={[styles.cell, { width: "10%" }]}><Text>Sisa</Text></View>
-                            <View style={[styles.cell, { width: "42%" }]}><Text>Keterangan</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>3.</Text></View>
+                            <View style={[styles.cell, { width: "42%", textAlign: "center" }]}><Text>Keterangan</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>3.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Sakit</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N-2</Text></View>
                             <View style={[styles.cell, { width: "10%" }]}><Text>{data.employee.remainingN2} hari</Text></View>
                             <View style={[styles.cell, { width: "42%" }]}><Text></Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>4.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>4.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Melahirkan</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N-1</Text></View>
                             <View style={[styles.cell, { width: "10%" }]}><Text>{data.employee.remainingN1} hari</Text></View>
                             <View style={[styles.cell, { width: "42%", borderBottomWidth: 0 }]}><Text>Yang bersangkutan mengambil cuti tahun {currentYear} sebanyak {data.duration}</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>5.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>5.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Karena Alasan Penting</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N</Text></View>
                             <View style={[styles.cell, { width: "10%" }]}><Text>{data.employee.remainingN} hari</Text></View>
                             <View style={[styles.cell, { width: "42%" }]}><Text>hari, sisa total saldo cuti Tahun {currentYear} sebanyak {data.employee.remainingN} hari</Text></View>
-                            <View style={[styles.cell, { width: "5%" }]}><Text>6.</Text></View>
+                            <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>6.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti di Luar Tanggungan Negara</Text></View>
                         </View>
                     </View>
@@ -280,12 +285,12 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "45%" }]}><Text>{data.addressDuringLeave}</Text></View>
-                            <View style={[styles.cellNoBorder, { width: "55%", textAlign: "right" }]}><Text>Hormat Saya,</Text></View>
+                            <View style={[styles.cell, { width: "55%", textAlign: "right" }]}><Text>Hormat Saya,</Text></View>
                         </View>
                     </View>
                     <View style={{ flexDirection: "row" }}>
-                        <View style={{ width: "45%" }}></View>
-                        <View style={{ width: "55%", textAlign: "right", paddingTop: 40 }}>
+                        <View style={[styles.cell, { width: "45%", paddingTop: 25 }]}></View>
+                        <View style={[styles.cell, { width: "55%", textAlign: "right", paddingTop: 25 }]}>
                             <Text style={styles.signatureName}>{data.employee.name.toUpperCase()}</Text>
                             <Text style={{ fontSize: 8 }}>NIP.{data.employee.nip}</Text>
                         </View>
