@@ -1,26 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
-    const token = await getToken({
-        req: request,
-        secret: process.env.AUTH_SECRET,
-        salt: process.env.NODE_ENV === "production"
-            ? "__Secure-authjs.session-token"
-            : "authjs.session-token",
-    });
-    const isLoggedIn = !!token;
-    const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
-    const isOnLogin = request.nextUrl.pathname.startsWith("/login");
-
-    if (isOnDashboard && !isLoggedIn) {
-        return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    if (isOnLogin && isLoggedIn) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
-
+export function middleware(request: NextRequest) {
+    // Let all requests through - auth will be handled at page level
     return NextResponse.next();
 }
 
