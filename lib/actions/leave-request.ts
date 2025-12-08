@@ -1,0 +1,68 @@
+"use server";
+
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+
+export async function createLeaveRequest(formData: FormData) {
+    const employeeId = parseInt(formData.get("employeeId") as string);
+    const letterDate = new Date(formData.get("letterDate") as string);
+    const leaveType = formData.get("leaveType") as string;
+    const reason = formData.get("reason") as string;
+    const duration = parseInt(formData.get("duration") as string);
+    const durationUnit = formData.get("durationUnit") as string;
+    const startDate = new Date(formData.get("startDate") as string);
+    const endDate = new Date(formData.get("endDate") as string);
+    const addressDuringLeave = formData.get("addressDuringLeave") as string;
+    const phoneNumber = formData.get("phoneNumber") as string;
+    const supervisorName = formData.get("supervisorName") as string;
+    const supervisorNip = formData.get("supervisorNip") as string;
+    const officialName = formData.get("officialName") as string;
+    const officialNip = formData.get("officialNip") as string;
+
+    const request = await prisma.leaveRequest.create({
+        data: {
+            employeeId,
+            letterDate,
+            leaveType,
+            reason,
+            duration,
+            durationUnit,
+            startDate,
+            endDate,
+            addressDuringLeave,
+            phoneNumber,
+            supervisorName,
+            supervisorNip,
+            officialName,
+            officialNip,
+        },
+    });
+
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/history");
+
+    return request.id;
+}
+
+export async function getLeaveRequests() {
+    return prisma.leaveRequest.findMany({
+        include: { employee: true },
+        orderBy: { createdAt: "desc" },
+    });
+}
+
+export async function getLeaveRequestById(id: number) {
+    return prisma.leaveRequest.findUnique({
+        where: { id },
+        include: { employee: true },
+    });
+}
+
+export async function deleteLeaveRequest(id: number) {
+    await prisma.leaveRequest.delete({
+        where: { id },
+    });
+
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/history");
+}

@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model Employee {
+  id              Int            @id @default(autoincrement())
+  name            String
+  nip             String         @unique
+  position        String
+  yearsOfService  String
+  workUnit        String         @default("Lapas Kelas IIB Gunung Sugih")
+  remainingN2     Int            @default(0)
+  remainingN1     Int            @default(0)
+  remainingN      Int            @default(12)
+  createdAt       DateTime       @default(now())
+  leaveRequests   LeaveRequest[]
+}
+
+model LeaveRequest {
+  id                   Int      @id @default(autoincrement())
+  employeeId           Int
+  employee             Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  letterDate           DateTime
+  leaveType            String
+  reason               String
+  duration             Int
+  durationUnit         String
+  startDate            DateTime
+  endDate              DateTime
+  addressDuringLeave   String
+  phoneNumber          String
+  supervisorName       String
+  supervisorNip        String
+  officialName         String   @default("SASTRA IRAWAN")
+  officialNip          String
+  createdAt            DateTime @default(now())
+}
