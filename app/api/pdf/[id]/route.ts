@@ -41,7 +41,7 @@ export async function GET(
 
     const filename = `Surat_Cuti_${leaveRequest.employee.name.replace(/\s+/g, "_")}_${new Date().toISOString().split("T")[0]}.pdf`;
 
-    return new Response(pdfBuffer, {
+    return new Response(new Uint8Array(pdfBuffer), {
         headers: {
             "Content-Type": "application/pdf",
             "Content-Disposition": `inline; filename="${filename}"`,
