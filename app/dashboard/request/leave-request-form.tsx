@@ -179,40 +179,60 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                     </div>
 
                     {selectedEmployee && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-xl">
-                            <div>
-                                <p className="text-xs text-muted-foreground">Nama</p>
-                                <p className="font-medium">{selectedEmployee.name}</p>
+                        <>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-muted/50 rounded-xl">
+                                <div>
+                                    <p className="text-xs text-muted-foreground">Nama</p>
+                                    <p className="font-medium">{selectedEmployee.name}</p>
+                                </div>
+                                <div>
+                                    <p className="text-xs text-muted-foreground">NIP</p>
+                                    <p className="font-medium">{selectedEmployee.nip}</p>
+                                </div>
+                                <div>
+                                    <p className="text-xs text-muted-foreground">Jabatan</p>
+                                    <p className="font-medium">{selectedEmployee.position}</p>
+                                </div>
+                                <div>
+                                    <p className="text-xs text-muted-foreground">Masa Kerja</p>
+                                    <p className="font-medium">{selectedEmployee.yearsOfService}</p>
+                                </div>
+                                <div className="md:col-span-2">
+                                    <p className="text-xs text-muted-foreground">Unit Kerja</p>
+                                    <p className="font-medium">{selectedEmployee.workUnit}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">NIP</p>
-                                <p className="font-medium">{selectedEmployee.nip}</p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/30 rounded-xl border">
+                                <div className="space-y-2">
+                                    <Label>Sisa Cuti N-2 (hari)</Label>
+                                    <Input
+                                        name="remainingN2"
+                                        type="number"
+                                        min="0"
+                                        defaultValue={selectedEmployee.remainingN2}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Sisa Cuti N-1 (hari)</Label>
+                                    <Input
+                                        name="remainingN1"
+                                        type="number"
+                                        min="0"
+                                        defaultValue={selectedEmployee.remainingN1}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Sisa Cuti N (hari)</Label>
+                                    <Input
+                                        name="remainingN"
+                                        type="number"
+                                        min="0"
+                                        defaultValue={selectedEmployee.remainingN}
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">Jabatan</p>
-                                <p className="font-medium">{selectedEmployee.position}</p>
-                            </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">Masa Kerja</p>
-                                <p className="font-medium">{selectedEmployee.yearsOfService}</p>
-                            </div>
-                            <div className="md:col-span-2">
-                                <p className="text-xs text-muted-foreground">Unit Kerja</p>
-                                <p className="font-medium">{selectedEmployee.workUnit}</p>
-                            </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">Sisa Cuti N-2</p>
-                                <p className="font-medium">{selectedEmployee.remainingN2} hari</p>
-                            </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">Sisa Cuti N-1</p>
-                                <p className="font-medium">{selectedEmployee.remainingN1} hari</p>
-                            </div>
-                            <div>
-                                <p className="text-xs text-muted-foreground">Sisa Cuti N (Tahun Berjalan)</p>
-                                <p className="font-medium">{selectedEmployee.remainingN} hari</p>
-                            </div>
-                        </div>
+                        </>
                     )}
                 </CardContent>
             </Card>
@@ -305,6 +325,16 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                                 required
                             />
                         </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label>Catatan Cuti (Bagian V)</Label>
+                        <Textarea
+                            name="leaveNotes"
+                            className="min-h-[80px]"
+                            placeholder="Contoh: Yang bersangkutan mengambil cuti tahun 2025 sebanyak 3 hari, sisa total saldo cuti Tahun 2025 sebanyak 12 hari"
+                        />
+                        <p className="text-xs text-muted-foreground">Teks ini akan muncul di bagian V (Keterangan) pada surat cuti</p>
                     </div>
                 </CardContent>
             </Card>

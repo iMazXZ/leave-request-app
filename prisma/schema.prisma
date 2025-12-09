@@ -50,5 +50,9 @@ model LeaveRequest {
   supervisorNip        String
   officialName         String   @default("SASTRA IRAWAN")
   officialNip          String
+  leaveNotes           String   @default("")
+  remainingN2          Int      @default(0)
+  remainingN1          Int      @default(0)
+  remainingN           Int      @default(12)
   createdAt            DateTime @default(now())
 }

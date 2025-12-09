@@ -26,6 +26,10 @@ interface EditLeaveRequestFormProps {
         supervisorNip: string;
         officialName: string;
         officialNip: string;
+        leaveNotes: string;
+        remainingN2: number;
+        remainingN1: number;
+        remainingN: number;
         employee: {
             id: number;
             name: string;
@@ -176,6 +180,50 @@ export default function EditLeaveRequestForm({ leaveRequest }: EditLeaveRequestF
                                     defaultValue={leaveRequest.phoneNumber}
                                     required
                                 />
+                            </div>
+
+                            <div className="space-y-2 md:col-span-2">
+                                <Label>Catatan Cuti (Bagian V)</Label>
+                                <Textarea
+                                    name="leaveNotes"
+                                    defaultValue={leaveRequest.leaveNotes}
+                                    placeholder="Contoh: Yang bersangkutan mengambil cuti tahun 2025 sebanyak 3 hari, sisa total saldo cuti Tahun 2025 sebanyak 12 hari"
+                                />
+                                <p className="text-xs text-muted-foreground">Teks ini akan muncul di bagian V (Keterangan) pada surat cuti</p>
+                            </div>
+                        </div>
+
+                        {/* Sisa Cuti */}
+                        <div className="border-t border-border pt-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">Sisa Cuti</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="space-y-2">
+                                    <Label>N-2 (hari)</Label>
+                                    <Input
+                                        type="number"
+                                        name="remainingN2"
+                                        defaultValue={leaveRequest.remainingN2}
+                                        min="0"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>N-1 (hari)</Label>
+                                    <Input
+                                        type="number"
+                                        name="remainingN1"
+                                        defaultValue={leaveRequest.remainingN1}
+                                        min="0"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>N (hari)</Label>
+                                    <Input
+                                        type="number"
+                                        name="remainingN"
+                                        defaultValue={leaveRequest.remainingN}
+                                        min="0"
+                                    />
+                                </div>
                             </div>
                         </div>
 

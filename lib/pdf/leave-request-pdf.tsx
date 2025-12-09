@@ -80,9 +80,6 @@ interface LeaveRequestData {
         position: string;
         yearsOfService: string;
         workUnit: string;
-        remainingN2: number;
-        remainingN1: number;
-        remainingN: number;
     };
     letterDate: Date;
     leaveType: string;
@@ -97,6 +94,10 @@ interface LeaveRequestData {
     supervisorNip: string;
     officialName: string;
     officialNip: string;
+    leaveNotes: string;
+    remainingN2: number;
+    remainingN1: number;
+    remainingN: number;
 }
 
 function formatDate(date: Date): string {
@@ -249,22 +250,22 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N-2</Text></View>
-                            <View style={[styles.cell, { width: "10%" }]}><Text>{data.employee.remainingN2} hari</Text></View>
+                            <View style={[styles.cell, { width: "10%" }]}><Text>{data.remainingN2} hari</Text></View>
                             <View style={[styles.cell, { width: "42%" }]}><Text></Text></View>
                             <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>4.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Melahirkan</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N-1</Text></View>
-                            <View style={[styles.cell, { width: "10%" }]}><Text>{data.employee.remainingN1} hari</Text></View>
-                            <View style={[styles.cell, { width: "42%", borderBottomWidth: 0 }]}><Text>Yang bersangkutan mengambil cuti tahun {currentYear} sebanyak {data.duration}</Text></View>
+                            <View style={[styles.cell, { width: "10%" }]}><Text>{data.remainingN1} hari</Text></View>
+                            <View style={[styles.cell, { width: "42%", borderBottomWidth: 0 }]}><Text>{data.leaveNotes ? data.leaveNotes.split('\n')[0] || '' : ''}</Text></View>
                             <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>5.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti Karena Alasan Penting</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N</Text></View>
-                            <View style={[styles.cell, { width: "10%" }]}><Text>{data.employee.remainingN} hari</Text></View>
-                            <View style={[styles.cell, { width: "42%" }]}><Text>hari, sisa total saldo cuti Tahun {currentYear} sebanyak {data.employee.remainingN} hari</Text></View>
+                            <View style={[styles.cell, { width: "10%" }]}><Text>{data.remainingN} hari</Text></View>
+                            <View style={[styles.cell, { width: "42%" }]}><Text>{data.leaveNotes ? data.leaveNotes.split('\n')[1] || '' : ''}</Text></View>
                             <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>6.</Text></View>
                             <View style={[styles.cell, { width: "35%" }]}><Text>Cuti di Luar Tanggungan Negara</Text></View>
                         </View>

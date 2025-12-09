@@ -18,6 +18,10 @@ export async function createLeaveRequest(formData: FormData) {
     const supervisorNip = formData.get("supervisorNip") as string;
     const officialName = formData.get("officialName") as string;
     const officialNip = formData.get("officialNip") as string;
+    const leaveNotes = formData.get("leaveNotes") as string || "";
+    const remainingN2 = parseInt(formData.get("remainingN2") as string) || 0;
+    const remainingN1 = parseInt(formData.get("remainingN1") as string) || 0;
+    const remainingN = parseInt(formData.get("remainingN") as string) || 12;
 
     const request = await prisma.leaveRequest.create({
         data: {
@@ -35,6 +39,10 @@ export async function createLeaveRequest(formData: FormData) {
             supervisorNip,
             officialName,
             officialNip,
+            leaveNotes,
+            remainingN2,
+            remainingN1,
+            remainingN,
         },
     });
 
@@ -81,6 +89,10 @@ export async function updateLeaveRequest(id: number, formData: FormData) {
     const supervisorNip = formData.get("supervisorNip") as string;
     const officialName = formData.get("officialName") as string;
     const officialNip = formData.get("officialNip") as string;
+    const leaveNotes = formData.get("leaveNotes") as string || "";
+    const remainingN2 = parseInt(formData.get("remainingN2") as string) || 0;
+    const remainingN1 = parseInt(formData.get("remainingN1") as string) || 0;
+    const remainingN = parseInt(formData.get("remainingN") as string) || 12;
 
     await prisma.leaveRequest.update({
         where: { id },
@@ -98,6 +110,10 @@ export async function updateLeaveRequest(id: number, formData: FormData) {
             supervisorNip,
             officialName,
             officialNip,
+            leaveNotes,
+            remainingN2,
+            remainingN1,
+            remainingN,
         },
     });
 
