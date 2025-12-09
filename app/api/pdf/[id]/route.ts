@@ -35,6 +35,10 @@ export async function GET(
                 supervisorNip: leaveRequest.supervisorNip,
                 officialName: leaveRequest.officialName,
                 officialNip: leaveRequest.officialNip,
+                leaveNotes: leaveRequest.leaveNotes,
+                remainingN2: leaveRequest.remainingN2,
+                remainingN1: leaveRequest.remainingN1,
+                remainingN: leaveRequest.remainingN,
             },
         })
     );
