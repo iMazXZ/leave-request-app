@@ -13,7 +13,7 @@ export async function createEmployee(formData: FormData) {
     const remainingN1 = parseInt(formData.get("remainingN1") as string) || 0;
     const remainingN = parseInt(formData.get("remainingN") as string) || 12;
 
-    await prisma.employee.create({
+    const employee = await prisma.employee.create({
         data: {
             name,
             nip,
@@ -27,6 +27,9 @@ export async function createEmployee(formData: FormData) {
     });
 
     revalidatePath("/dashboard/employees");
+    revalidatePath("/dashboard/request");
+
+    return employee.id;
 }
 
 export async function updateEmployee(id: number, formData: FormData) {

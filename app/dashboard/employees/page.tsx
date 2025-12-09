@@ -10,14 +10,14 @@ export default async function EmployeesPage() {
     });
 
     return (
-        <div className="space-y-8">
-            <div className="flex items-center justify-between">
+        <div className="space-y-6 md:space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Master Data Pegawai</h1>
-                    <p className="text-slate-400">Kelola data pegawai untuk pengajuan cuti</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Master Data Pegawai</h1>
+                    <p className="text-muted-foreground">Kelola data pegawai untuk pengajuan cuti</p>
                 </div>
                 <Link href="/dashboard/employees/new">
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    <Button className="bg-primary hover:bg-primary/90 w-full sm:w-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" x2="12" y1="8" y2="16" />
@@ -28,9 +28,9 @@ export default async function EmployeesPage() {
                 </Link>
             </div>
 
-            <Card className="bg-white/5 backdrop-blur-xl border-white/10">
+            <Card>
                 <CardHeader>
-                    <CardTitle className="text-white">Daftar Pegawai</CardTitle>
+                    <CardTitle className="text-foreground">Daftar Pegawai</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <EmployeeTable employees={employees} />

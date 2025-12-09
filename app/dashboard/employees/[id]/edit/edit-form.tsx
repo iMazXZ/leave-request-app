@@ -22,107 +22,98 @@ export function EditEmployeeForm({ employee }: { employee: Employee }) {
     };
 
     return (
-        <div className="max-w-2xl mx-auto space-y-8">
+        <div className="max-w-2xl mx-auto space-y-6 md:space-y-8">
             <div>
-                <h1 className="text-3xl font-bold text-white mb-2">Edit Pegawai</h1>
-                <p className="text-slate-400">Perbarui data pegawai</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Edit Pegawai</h1>
+                <p className="text-muted-foreground">Perbarui data pegawai</p>
             </div>
 
-            <Card className="bg-white/5 backdrop-blur-xl border-white/10">
+            <Card>
                 <CardHeader>
-                    <CardTitle className="text-white">Data Pegawai</CardTitle>
+                    <CardTitle>Data Pegawai</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label className="text-slate-300">Nama Pegawai</Label>
+                                <Label>Nama Pegawai</Label>
                                 <Input
                                     name="name"
                                     defaultValue={employee.name}
                                     required
-                                    className="bg-white/5 border-white/10 text-white"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label className="text-slate-300">NIP</Label>
+                                <Label>NIP</Label>
                                 <Input
                                     name="nip"
                                     defaultValue={employee.nip}
                                     required
-                                    className="bg-white/5 border-white/10 text-white"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label className="text-slate-300">Jabatan</Label>
+                                <Label>Jabatan</Label>
                                 <Input
                                     name="position"
                                     defaultValue={employee.position}
                                     required
-                                    className="bg-white/5 border-white/10 text-white"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label className="text-slate-300">Masa Kerja</Label>
+                                <Label>Masa Kerja</Label>
                                 <Input
                                     name="yearsOfService"
                                     defaultValue={employee.yearsOfService}
                                     required
-                                    className="bg-white/5 border-white/10 text-white"
                                 />
                             </div>
                             <div className="space-y-2 md:col-span-2">
-                                <Label className="text-slate-300">Unit Kerja</Label>
+                                <Label>Unit Kerja</Label>
                                 <Input
                                     name="workUnit"
                                     defaultValue={employee.workUnit}
                                     required
-                                    className="bg-white/5 border-white/10 text-white"
                                 />
                             </div>
                         </div>
 
-                        <div className="border-t border-white/10 pt-6">
-                            <h3 className="text-lg font-semibold text-white mb-4">Sisa Cuti</h3>
+                        <div className="border-t border-border pt-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">Sisa Cuti</h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Sisa Cuti (N-2)</Label>
+                                    <Label>Sisa Cuti (N-2)</Label>
                                     <Input
                                         name="remainingN2"
                                         type="number"
                                         defaultValue={employee.remainingN2}
                                         min="0"
-                                        className="bg-white/5 border-white/10 text-white"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Sisa Cuti (N-1)</Label>
+                                    <Label>Sisa Cuti (N-1)</Label>
                                     <Input
                                         name="remainingN1"
                                         type="number"
                                         defaultValue={employee.remainingN1}
                                         min="0"
-                                        className="bg-white/5 border-white/10 text-white"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-slate-300">Sisa Cuti (N)</Label>
+                                    <Label>Sisa Cuti (N)</Label>
                                     <Input
                                         name="remainingN"
                                         type="number"
                                         defaultValue={employee.remainingN}
                                         min="0"
-                                        className="bg-white/5 border-white/10 text-white"
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex gap-4 pt-4">
+                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
                             <Button
                                 type="button"
                                 variant="ghost"
-                                className="text-slate-400 hover:text-white"
                                 onClick={() => router.back()}
                             >
                                 Batal
@@ -130,7 +121,7 @@ export function EditEmployeeForm({ employee }: { employee: Employee }) {
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                                className="bg-primary hover:bg-primary/90"
                             >
                                 {loading ? "Menyimpan..." : "Simpan Perubahan"}
                             </Button>

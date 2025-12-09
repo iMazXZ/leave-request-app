@@ -26,10 +26,9 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontFamily: "Helvetica-Bold",
+        fontFamily: "Helvetica",
         fontSize: 10,
         marginBottom: 8,
-        textDecoration: "underline",
     },
     section: {
         marginBottom: 5,
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
         padding: 1,
         fontSize: 9,
         paddingLeft: 4,
-        fontFamily: "Helvetica-Bold",
+        fontFamily: "Helvetica",
     },
     cellNoBorder: {
         padding: 1,
@@ -123,11 +122,11 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
         <Document>
             <Page size={{ width: F4_WIDTH, height: F4_HEIGHT }} style={styles.page}>
                 {/* Header */}
-                <View style={styles.header}>
+                <View style={[styles.header, { paddingTop: 10 }]}>
                     <Text>{location}, {formatDate(data.letterDate)}</Text>
-                    <Text>Yth. Kepala {data.employee.workUnit}</Text>
+                    <Text>Yth. Kepala Lapas Kelas IIB Gunung Sugih</Text>
                     <Text>di</Text>
-                    <Text>{location}</Text>
+                    <Text>Gunung Sugih</Text>
                 </View>
 
                 {/* Title */}
@@ -279,26 +278,26 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                             <View style={[styles.cellHeader, { width: "100%" }]}><Text>VI.    ALAMAT SELAMA MENJALANKAN CUTI</Text></View>
                         </View>
                         <View style={styles.tableRow}>
-                            <View style={[styles.cell, { width: "45%" }]}><Text></Text></View>
+                            <View style={[styles.cell, { width: "45%", borderBottomWidth: 0 }]}><Text></Text></View>
                             <View style={[styles.cell, { width: "15%" }]}><Text>No. Telpon</Text></View>
                             <View style={[styles.cell, { width: "40%" }]}><Text>{data.phoneNumber}</Text></View>
                         </View>
                         <View style={styles.tableRow}>
-                            <View style={[styles.cell, { width: "45%" }]}><Text>{data.addressDuringLeave}</Text></View>
-                            <View style={[styles.cell, { width: "55%", textAlign: "right" }]}><Text>Hormat Saya,</Text></View>
+                            <View style={[styles.cell, { width: "45%", borderBottomWidth: 0 }]}><Text>{data.addressDuringLeave}</Text></View>
+                            <View style={[styles.cell, { width: "55%", textAlign: "right", borderBottomWidth: 0 }]}><Text>Hormat Saya,</Text></View>
                         </View>
-                    </View>
-                    <View style={{ flexDirection: "row" }}>
-                        <View style={[styles.cell, { width: "45%", paddingTop: 25 }]}></View>
-                        <View style={[styles.cell, { width: "55%", textAlign: "right", paddingTop: 25 }]}>
-                            <Text style={styles.signatureName}>{data.employee.name.toUpperCase()}</Text>
-                            <Text style={{ fontSize: 8 }}>NIP.{data.employee.nip}</Text>
+                        <View style={styles.tableRow}>
+                            <View style={[styles.cell, { width: "45%", minHeight: 40 }]}><Text></Text></View>
+                            <View style={[styles.cell, { width: "55%", textAlign: "right", paddingTop: 50 }]}>
+                                <Text style={styles.signatureName}>{data.employee.name.toUpperCase()}</Text>
+                                <Text style={{ fontSize: 8 }}>NIP.{data.employee.nip}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
 
                 {/* VII. PERTIMBANGAN ATASAN LANGSUNG */}
-                <View style={[styles.section, { marginTop: 10 }]}>
+                <View style={[styles.section]}>
                     <View style={styles.table}>
                         <View style={styles.tableRow}>
                             <View style={[styles.cellHeader, { width: "100%" }]}><Text>VII.    PERTIMBANGAN ATASAN LANGSUNG**</Text></View>
@@ -311,7 +310,7 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "50%", minHeight: 50 }]}><Text>Catatan :</Text></View>
-                            <View style={[styles.cell, { width: "50%", textAlign: "right", paddingTop: 25 }]}>
+                            <View style={[styles.cell, { width: "50%", textAlign: "right", paddingTop: 50 }]}>
                                 <Text style={styles.signatureName}>{data.supervisorName.toUpperCase()}</Text>
                                 <Text style={{ fontSize: 8 }}>NIP. {data.supervisorNip}</Text>
                             </View>
@@ -333,9 +332,9 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "50%", minHeight: 55 }]}><Text>Catatan :</Text></View>
-                            <View style={[styles.cell, { width: "50%", textAlign: "right", paddingTop: 10 }]}>
+                            <View style={[styles.cell, { width: "50%", textAlign: "right", paddingTop: 2 }]}>
                                 <Text>Kepala,</Text>
-                                <View style={{ marginTop: 20 }}>
+                                <View style={{ marginTop: 50 }}>
                                     <Text style={styles.signatureName}>{data.officialName.toUpperCase()}</Text>
                                     <Text style={{ fontSize: 8 }}>NIP. {data.officialNip}</Text>
                                 </View>
