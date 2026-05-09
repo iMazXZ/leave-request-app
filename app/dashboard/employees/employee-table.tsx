@@ -47,9 +47,6 @@ export function EmployeeTable({ employees }: { employees: Employee[] }) {
                                 <p className="font-medium text-foreground">{employee.name}</p>
                                 <p className="text-sm text-muted-foreground">{employee.nip}</p>
                             </div>
-                            <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                                {employee.remainingN} hari
-                            </span>
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-sm">
                             <div>
@@ -90,7 +87,6 @@ export function EmployeeTable({ employees }: { employees: Employee[] }) {
                             <TableHead>NIP</TableHead>
                             <TableHead>Jabatan</TableHead>
                             <TableHead>Unit Kerja</TableHead>
-                            <TableHead>Sisa Cuti (N)</TableHead>
                             <TableHead className="text-right">Aksi</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -101,7 +97,6 @@ export function EmployeeTable({ employees }: { employees: Employee[] }) {
                                 <TableCell>{employee.nip}</TableCell>
                                 <TableCell>{employee.position}</TableCell>
                                 <TableCell>{employee.workUnit}</TableCell>
-                                <TableCell>{employee.remainingN} hari</TableCell>
                                 <TableCell className="text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <Link href={`/dashboard/employees/${employee.id}/edit`}>

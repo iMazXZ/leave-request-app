@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function createLeaveRequest(formData: FormData) {
     const employeeId = parseInt(formData.get("employeeId") as string);
+    const yearsOfService = formData.get("yearsOfService") as string;
     const letterDate = new Date(formData.get("letterDate") as string);
     const leaveType = formData.get("leaveType") as string;
     const reason = formData.get("reason") as string;
@@ -26,6 +27,7 @@ export async function createLeaveRequest(formData: FormData) {
     const request = await prisma.leaveRequest.create({
         data: {
             employeeId,
+            yearsOfService,
             letterDate,
             leaveType,
             reason,
@@ -76,6 +78,7 @@ export async function deleteLeaveRequest(id: number) {
 }
 
 export async function updateLeaveRequest(id: number, formData: FormData) {
+    const yearsOfService = formData.get("yearsOfService") as string;
     const letterDate = new Date(formData.get("letterDate") as string);
     const leaveType = formData.get("leaveType") as string;
     const reason = formData.get("reason") as string;
@@ -97,6 +100,7 @@ export async function updateLeaveRequest(id: number, formData: FormData) {
     await prisma.leaveRequest.update({
         where: { id },
         data: {
+            yearsOfService,
             letterDate,
             leaveType,
             reason,

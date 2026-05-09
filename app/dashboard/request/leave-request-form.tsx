@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Employee } from "@prisma/client";
+import { Employee, SigningOfficial } from "@prisma/client";
 import { createLeaveRequest } from "@/lib/actions/leave-request";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -43,15 +43,20 @@ const DURATION_UNITS = ["Hari", "Bulan", "Tahun"];
 
 interface LeaveRequestFormProps {
     employees: Employee[];
+    signingOfficials: SigningOfficial[];
     preselectedEmployee?: Employee | null;
 }
 
-export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveRequestFormProps) {
+export function LeaveRequestForm({ employees, signingOfficials, preselectedEmployee }: LeaveRequestFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(preselectedEmployee || null);
     const [open, setOpen] = useState(false);
     const [createdId, setCreatedId] = useState<number | null>(null);
+    const [selectedSupervisor, setSelectedSupervisor] = useState<SigningOfficial | null>(null);
+    const [selectedOfficial, setSelectedOfficial] = useState<SigningOfficial | null>(
+        signingOfficials.find((official) => official.name === "SASTRA IRAWAN") ?? signingOfficials[0] ?? null
+    );
 
     const today = new Date().toISOString().split("T")[0];
 
@@ -61,10 +66,18 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
             alert("Silakan pilih pegawai terlebih dahulu");
             return;
         }
+        if (!selectedSupervisor || !selectedOfficial) {
+            alert("Silakan pilih pejabat penandatangan terlebih dahulu");
+            return;
+        }
 
         setLoading(true);
         const formData = new FormData(e.currentTarget);
         formData.set("employeeId", selectedEmployee.id.toString());
+        formData.set("supervisorName", selectedSupervisor.name);
+        formData.set("supervisorNip", selectedSupervisor.nip);
+        formData.set("officialName", selectedOfficial.name);
+        formData.set("officialNip", selectedOfficial.nip);
 
         const id = await createLeaveRequest(formData);
         setCreatedId(id);
@@ -193,10 +206,6 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                                     <p className="text-xs text-muted-foreground">Jabatan</p>
                                     <p className="font-medium">{selectedEmployee.position}</p>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-muted-foreground">Masa Kerja</p>
-                                    <p className="font-medium">{selectedEmployee.yearsOfService}</p>
-                                </div>
                                 <div className="md:col-span-2">
                                     <p className="text-xs text-muted-foreground">Unit Kerja</p>
                                     <p className="font-medium">{selectedEmployee.workUnit}</p>
@@ -204,13 +213,21 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/30 rounded-xl border">
+                                <div className="space-y-2 md:col-span-3">
+                                    <Label>Masa Kerja</Label>
+                                    <Input
+                                        name="yearsOfService"
+                                        required
+                                        placeholder="Contoh: 7 Tahun 3 Bulan"
+                                    />
+                                </div>
                                 <div className="space-y-2">
                                     <Label>Sisa Cuti N-2 (hari)</Label>
                                     <Input
                                         name="remainingN2"
                                         type="number"
                                         min="0"
-                                        defaultValue={selectedEmployee.remainingN2}
+                                        defaultValue="0"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -219,7 +236,7 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                                         name="remainingN1"
                                         type="number"
                                         min="0"
-                                        defaultValue={selectedEmployee.remainingN1}
+                                        defaultValue="0"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -228,7 +245,7 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                                         name="remainingN"
                                         type="number"
                                         min="0"
-                                        defaultValue={selectedEmployee.remainingN}
+                                        defaultValue="12"
                                     />
                                 </div>
                             </div>
@@ -378,34 +395,63 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                 <CardContent className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label>Nama Atasan Langsung</Label>
-                            <Input
-                                name="supervisorName"
+                            <Label>Atasan Langsung</Label>
+                            <Select
+                                value={selectedSupervisor?.id.toString()}
+                                onValueChange={(value) => {
+                                    setSelectedSupervisor(signingOfficials.find((official) => official.id.toString() === value) ?? null);
+                                }}
                                 required
-                                placeholder="Nama atasan langsung"
-                            />
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Pilih atasan langsung" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {signingOfficials.map((official) => (
+                                        <SelectItem key={official.id} value={official.id.toString()}>
+                                            {official.fullName} - {official.position}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                         <div className="space-y-2">
                             <Label>NIP Atasan Langsung</Label>
                             <Input
                                 name="supervisorNip"
+                                value={selectedSupervisor?.nip ?? ""}
+                                readOnly
                                 required
-                                placeholder="NIP atasan langsung"
+                                placeholder="Terisi otomatis"
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label>Nama Pejabat Berwenang (Kepala)</Label>
-                            <Input
-                                name="officialName"
-                                defaultValue="SASTRA IRAWAN"
+                            <Label>Pejabat Berwenang</Label>
+                            <Select
+                                value={selectedOfficial?.id.toString()}
+                                onValueChange={(value) => {
+                                    setSelectedOfficial(signingOfficials.find((official) => official.id.toString() === value) ?? null);
+                                }}
                                 required
-                            />
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Pilih pejabat berwenang" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {signingOfficials.map((official) => (
+                                        <SelectItem key={official.id} value={official.id.toString()}>
+                                            {official.fullName} - {official.position}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                         <div className="space-y-2">
                             <Label>NIP Pejabat Berwenang</Label>
                             <Input
                                 name="officialNip"
-                                defaultValue="197711052000121001"
+                                value={selectedOfficial?.nip ?? ""}
+                                readOnly
                                 required
                             />
                         </div>
@@ -424,7 +470,7 @@ export function LeaveRequestForm({ employees, preselectedEmployee }: LeaveReques
                 </Button>
                 <Button
                     type="submit"
-                    disabled={loading || !selectedEmployee}
+                    disabled={loading || !selectedEmployee || !selectedSupervisor || !selectedOfficial}
                     className="bg-primary hover:bg-primary/90 px-8"
                 >
                     {loading ? "Membuat Surat..." : "Buat Surat Cuti"}

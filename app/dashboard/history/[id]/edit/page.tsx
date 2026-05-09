@@ -9,14 +9,19 @@ export default async function EditLeaveRequestPage({
 }) {
     const { id } = await params;
 
-    const leaveRequest = await prisma.leaveRequest.findUnique({
-        where: { id: parseInt(id) },
-        include: { employee: true },
-    });
+    const [leaveRequest, signingOfficials] = await Promise.all([
+        prisma.leaveRequest.findUnique({
+            where: { id: parseInt(id) },
+            include: { employee: true },
+        }),
+        prisma.signingOfficial.findMany({
+            orderBy: { createdAt: "desc" },
+        }),
+    ]);
 
     if (!leaveRequest) {
         notFound();
     }
 
-    return <EditLeaveRequestForm leaveRequest={leaveRequest} />;
+    return <EditLeaveRequestForm leaveRequest={leaveRequest} signingOfficials={signingOfficials} />;
 }

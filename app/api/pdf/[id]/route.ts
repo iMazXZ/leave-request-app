@@ -22,6 +22,7 @@ export async function GET(
         LeaveRequestPDF({
             data: {
                 employee: leaveRequest.employee,
+                yearsOfService: leaveRequest.yearsOfService,
                 letterDate: leaveRequest.letterDate,
                 leaveType: leaveRequest.leaveType,
                 reason: leaveRequest.reason,

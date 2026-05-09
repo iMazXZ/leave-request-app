@@ -8,9 +8,14 @@ export default async function LeaveRequestPage({
 }) {
     const { employeeId } = await searchParams;
 
-    const employees = await prisma.employee.findMany({
-        orderBy: { name: "asc" },
-    });
+    const [employees, signingOfficials] = await Promise.all([
+        prisma.employee.findMany({
+            orderBy: { name: "asc" },
+        }),
+        prisma.signingOfficial.findMany({
+            orderBy: { createdAt: "desc" },
+        }),
+    ]);
 
     // Find preselected employee if ID is provided
     const preselectedEmployee = employeeId
@@ -28,6 +33,7 @@ export default async function LeaveRequestPage({
 
             <LeaveRequestForm
                 employees={employees}
+                signingOfficials={signingOfficials}
                 preselectedEmployee={preselectedEmployee}
             />
         </div>

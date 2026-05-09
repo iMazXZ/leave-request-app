@@ -7,22 +7,18 @@ export async function createEmployee(formData: FormData) {
     const name = formData.get("name") as string;
     const nip = formData.get("nip") as string;
     const position = formData.get("position") as string;
-    const yearsOfService = formData.get("yearsOfService") as string;
     const workUnit = formData.get("workUnit") as string;
-    const remainingN2 = parseInt(formData.get("remainingN2") as string) || 0;
-    const remainingN1 = parseInt(formData.get("remainingN1") as string) || 0;
-    const remainingN = parseInt(formData.get("remainingN") as string) || 12;
 
     const employee = await prisma.employee.create({
         data: {
             name,
             nip,
             position,
-            yearsOfService,
+            yearsOfService: "-",
             workUnit,
-            remainingN2,
-            remainingN1,
-            remainingN,
+            remainingN2: 0,
+            remainingN1: 0,
+            remainingN: 12,
         },
     });
 
@@ -36,11 +32,7 @@ export async function updateEmployee(id: number, formData: FormData) {
     const name = formData.get("name") as string;
     const nip = formData.get("nip") as string;
     const position = formData.get("position") as string;
-    const yearsOfService = formData.get("yearsOfService") as string;
     const workUnit = formData.get("workUnit") as string;
-    const remainingN2 = parseInt(formData.get("remainingN2") as string) || 0;
-    const remainingN1 = parseInt(formData.get("remainingN1") as string) || 0;
-    const remainingN = parseInt(formData.get("remainingN") as string) || 12;
 
     await prisma.employee.update({
         where: { id },
@@ -48,11 +40,7 @@ export async function updateEmployee(id: number, formData: FormData) {
             name,
             nip,
             position,
-            yearsOfService,
             workUnit,
-            remainingN2,
-            remainingN1,
-            remainingN,
         },
     });
 

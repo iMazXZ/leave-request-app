@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { SigningOfficial } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,6 +23,7 @@ interface EditLeaveRequestFormProps {
         endDate: Date;
         addressDuringLeave: string;
         phoneNumber: string;
+        yearsOfService: string;
         supervisorName: string;
         supervisorNip: string;
         officialName: string;
@@ -36,13 +38,23 @@ interface EditLeaveRequestFormProps {
             nip: string;
         };
     };
+    signingOfficials: SigningOfficial[];
 }
 
-export default function EditLeaveRequestForm({ leaveRequest }: EditLeaveRequestFormProps) {
+export default function EditLeaveRequestForm({ leaveRequest, signingOfficials }: EditLeaveRequestFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [leaveType, setLeaveType] = useState(leaveRequest.leaveType);
     const [durationUnit, setDurationUnit] = useState(leaveRequest.durationUnit);
+    const [selectedSupervisor, setSelectedSupervisor] = useState<SigningOfficial | null>(
+        signingOfficials.find((official) => official.nip === leaveRequest.supervisorNip || official.name === leaveRequest.supervisorName) ?? null
+    );
+    const [selectedOfficial, setSelectedOfficial] = useState<SigningOfficial | null>(
+        signingOfficials.find((official) => official.nip === leaveRequest.officialNip || official.name === leaveRequest.officialName)
+        ?? signingOfficials.find((official) => official.name === "SASTRA IRAWAN")
+        ?? signingOfficials[0]
+        ?? null
+    );
 
     const formatDateForInput = (date: Date) => {
         return new Date(date).toISOString().split("T")[0];
@@ -50,11 +62,20 @@ export default function EditLeaveRequestForm({ leaveRequest }: EditLeaveRequestF
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!selectedSupervisor || !selectedOfficial) {
+            alert("Silakan pilih pejabat penandatangan terlebih dahulu");
+            return;
+        }
+
         setLoading(true);
 
         const formData = new FormData(e.currentTarget);
         formData.set("leaveType", leaveType);
         formData.set("durationUnit", durationUnit);
+        formData.set("supervisorName", selectedSupervisor.name);
+        formData.set("supervisorNip", selectedSupervisor.nip);
+        formData.set("officialName", selectedOfficial.name);
+        formData.set("officialNip", selectedOfficial.nip);
 
         await updateLeaveRequest(leaveRequest.id, formData);
         router.push("/dashboard/history");
@@ -183,6 +204,16 @@ export default function EditLeaveRequestForm({ leaveRequest }: EditLeaveRequestF
                             </div>
 
                             <div className="space-y-2 md:col-span-2">
+                                <Label>Masa Kerja</Label>
+                                <Input
+                                    type="text"
+                                    name="yearsOfService"
+                                    defaultValue={leaveRequest.yearsOfService}
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-2 md:col-span-2">
                                 <Label>Catatan Cuti (Bagian V)</Label>
                                 <Textarea
                                     name="leaveNotes"
@@ -233,19 +264,32 @@ export default function EditLeaveRequestForm({ leaveRequest }: EditLeaveRequestF
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <Label>Nama Atasan</Label>
-                                    <Input
-                                        type="text"
-                                        name="supervisorName"
-                                        defaultValue={leaveRequest.supervisorName}
+                                    <Select
+                                        value={selectedSupervisor?.id.toString()}
+                                        onValueChange={(value) => {
+                                            setSelectedSupervisor(signingOfficials.find((official) => official.id.toString() === value) ?? null);
+                                        }}
                                         required
-                                    />
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Pilih atasan langsung" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {signingOfficials.map((official) => (
+                                                <SelectItem key={official.id} value={official.id.toString()}>
+                                                    {official.fullName} - {official.position}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label>NIP Atasan</Label>
                                     <Input
                                         type="text"
                                         name="supervisorNip"
-                                        defaultValue={leaveRequest.supervisorNip}
+                                        value={selectedSupervisor?.nip ?? ""}
+                                        readOnly
                                         required
                                     />
                                 </div>
@@ -258,19 +302,32 @@ export default function EditLeaveRequestForm({ leaveRequest }: EditLeaveRequestF
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <Label>Nama Pejabat</Label>
-                                    <Input
-                                        type="text"
-                                        name="officialName"
-                                        defaultValue={leaveRequest.officialName}
+                                    <Select
+                                        value={selectedOfficial?.id.toString()}
+                                        onValueChange={(value) => {
+                                            setSelectedOfficial(signingOfficials.find((official) => official.id.toString() === value) ?? null);
+                                        }}
                                         required
-                                    />
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Pilih pejabat berwenang" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {signingOfficials.map((official) => (
+                                                <SelectItem key={official.id} value={official.id.toString()}>
+                                                    {official.fullName} - {official.position}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label>NIP Pejabat</Label>
                                     <Input
                                         type="text"
                                         name="officialNip"
-                                        defaultValue={leaveRequest.officialNip}
+                                        value={selectedOfficial?.nip ?? ""}
+                                        readOnly
                                         required
                                     />
                                 </div>

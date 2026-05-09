@@ -51,19 +51,11 @@ export function EditEmployeeForm({ employee }: { employee: Employee }) {
                                     required
                                 />
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-2 md:col-span-2">
                                 <Label>Jabatan</Label>
                                 <Input
                                     name="position"
                                     defaultValue={employee.position}
-                                    required
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label>Masa Kerja</Label>
-                                <Input
-                                    name="yearsOfService"
-                                    defaultValue={employee.yearsOfService}
                                     required
                                 />
                             </div>
@@ -74,39 +66,6 @@ export function EditEmployeeForm({ employee }: { employee: Employee }) {
                                     defaultValue={employee.workUnit}
                                     required
                                 />
-                            </div>
-                        </div>
-
-                        <div className="border-t border-border pt-6">
-                            <h3 className="text-lg font-semibold text-foreground mb-4">Sisa Cuti</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="space-y-2">
-                                    <Label>Sisa Cuti (N-2)</Label>
-                                    <Input
-                                        name="remainingN2"
-                                        type="number"
-                                        defaultValue={employee.remainingN2}
-                                        min="0"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Sisa Cuti (N-1)</Label>
-                                    <Input
-                                        name="remainingN1"
-                                        type="number"
-                                        defaultValue={employee.remainingN1}
-                                        min="0"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Sisa Cuti (N)</Label>
-                                    <Input
-                                        name="remainingN"
-                                        type="number"
-                                        defaultValue={employee.remainingN}
-                                        min="0"
-                                    />
-                                </div>
                             </div>
                         </div>
 

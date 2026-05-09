@@ -33,10 +33,20 @@ model Employee {
   leaveRequests   LeaveRequest[]
 }
 
+model SigningOfficial {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  name      String
+  nip       String   @unique
+  position  String
+  createdAt DateTime @default(now())
+}
+
 model LeaveRequest {
   id                   Int      @id @default(autoincrement())
   employeeId           Int
   employee             Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  yearsOfService       String   @default("-")
   letterDate           DateTime
   leaveType            String
   reason               String

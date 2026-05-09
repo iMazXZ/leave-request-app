@@ -51,20 +51,12 @@ export default function NewEmployeePage() {
                                     placeholder="Nomor Induk Pegawai"
                                 />
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-2 md:col-span-2">
                                 <Label>Jabatan</Label>
                                 <Input
                                     name="position"
                                     required
                                     placeholder="Jabatan pegawai"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label>Masa Kerja</Label>
-                                <Input
-                                    name="yearsOfService"
-                                    required
-                                    placeholder="Contoh: 7 Tahun"
                                 />
                             </div>
                             <div className="space-y-2 md:col-span-2">
@@ -74,39 +66,6 @@ export default function NewEmployeePage() {
                                     defaultValue="Lapas Kelas IIB Gunung Sugih"
                                     required
                                 />
-                            </div>
-                        </div>
-
-                        <div className="border-t border-border pt-6">
-                            <h3 className="text-lg font-semibold text-foreground mb-4">Sisa Cuti</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="space-y-2">
-                                    <Label>Sisa Cuti (N-2)</Label>
-                                    <Input
-                                        name="remainingN2"
-                                        type="number"
-                                        defaultValue="0"
-                                        min="0"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Sisa Cuti (N-1)</Label>
-                                    <Input
-                                        name="remainingN1"
-                                        type="number"
-                                        defaultValue="0"
-                                        min="0"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Sisa Cuti (N)</Label>
-                                    <Input
-                                        name="remainingN"
-                                        type="number"
-                                        defaultValue="12"
-                                        min="0"
-                                    />
-                                </div>
                             </div>
                         </div>
 
