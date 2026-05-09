@@ -148,13 +148,13 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
             {/* Sidebar */}
             <aside
                 className={`
-                    fixed top-0 left-0 h-full w-64 bg-card border-r border-border z-50
+                    fixed top-0 left-0 h-full w-64 bg-card border-r border-border z-50 flex flex-col
                     transform transition-transform duration-300 ease-in-out
                     lg:translate-x-0
                     ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
                 `}
             >
-                <div className="p-6">
+                <div className="flex-1 overflow-y-auto p-6 pb-4">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
@@ -223,10 +223,10 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                     </nav>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center font-semibold">
+                <div className="shrink-0 p-4 border-t border-border">
+                    <div className="flex items-center gap-3 mb-3">
+                        <div className="flex min-w-0 flex-1 items-center gap-3">
+                            <div className="w-10 h-10 shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center font-semibold">
                                 {user.name?.charAt(0) || "A"}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -234,7 +234,7 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                                 <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                             </div>
                         </div>
-                        <div className="hidden lg:block">
+                        <div className="hidden lg:block shrink-0">
                             <ThemeToggle />
                         </div>
                     </div>

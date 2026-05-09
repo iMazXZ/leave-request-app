@@ -10,6 +10,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Sistem Pengajuan Cuti - Lapas Kelas IIB Gunung Sugih",
   description: "Aplikasi Pengelolaan Surat Cuti Pegawai",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
