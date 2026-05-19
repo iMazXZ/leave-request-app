@@ -123,33 +123,8 @@ function getLocationName(workUnit: string): string {
     return words.slice(-2).join(" ");
 }
 
-function splitLeaveNotes(leaveNotes: string): [string, string] {
-    const trimmed = leaveNotes.trim();
-    if (!trimmed) return ["", ""];
-
-    const explicitLines = trimmed.split("\n").map((line) => line.trim()).filter(Boolean);
-    if (explicitLines.length > 1) {
-        return [explicitLines[0], explicitLines.slice(1).join(" ")];
-    }
-
-    const commaIndex = trimmed.indexOf(",");
-    if (commaIndex > -1) {
-        return [
-            trimmed.slice(0, commaIndex + 1),
-            trimmed.slice(commaIndex + 1).trim(),
-        ];
-    }
-
-    const midpoint = Math.floor(trimmed.length / 2);
-    const splitIndex = trimmed.lastIndexOf(" ", midpoint);
-    if (splitIndex > -1) {
-        return [
-            trimmed.slice(0, splitIndex).trim(),
-            trimmed.slice(splitIndex + 1).trim(),
-        ];
-    }
-
-    return [trimmed, ""];
+function normalizeLeaveNotes(leaveNotes: string): string {
+    return leaveNotes.trim().replace(/\s+/g, " ");
 }
 
 function LeaveTypeCheck({ selected }: { selected: boolean }) {
@@ -171,7 +146,7 @@ function LeaveTypeCheck({ selected }: { selected: boolean }) {
 
 export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
     const location = getLocationName(data.employee.workUnit);
-    const [leaveNoteLine1, leaveNoteLine2] = splitLeaveNotes(data.leaveNotes);
+    const leaveNotes = normalizeLeaveNotes(data.leaveNotes);
 
     return (
         <Document>
@@ -311,14 +286,14 @@ export function LeaveRequestPDF({ data }: { data: LeaveRequestData }) {
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N-1</Text></View>
                             <View style={[styles.cell, { width: "10%" }]}><Text>{data.remainingN1} hari</Text></View>
-                            <View style={[styles.cell, { width: "50%", borderBottomWidth: 0 }]}><Text>{leaveNoteLine1}</Text></View>
+                            <View style={[styles.cell, { width: "50%", borderBottomWidth: 0 }]}><Text>{leaveNotes}</Text></View>
                             <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>5.</Text></View>
                             <View style={[styles.cell, { width: "27%" }]}><Text>Cuti Karena Alasan Penting</Text></View>
                         </View>
                         <View style={styles.tableRow}>
                             <View style={[styles.cell, { width: "8%" }]}><Text>N</Text></View>
                             <View style={[styles.cell, { width: "10%" }]}><Text>{data.remainingN} hari</Text></View>
-                            <View style={[styles.cell, { width: "50%" }]}><Text>{leaveNoteLine2}</Text></View>
+                            <View style={[styles.cell, { width: "50%" }]}><Text></Text></View>
                             <View style={[styles.cell, { width: "5%", borderRightWidth: 0 }]}><Text>6.</Text></View>
                             <View style={[styles.cell, { width: "27%" }]}><Text>Cuti di Luar Tanggungan Negara</Text></View>
                         </View>
