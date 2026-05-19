@@ -33,7 +33,7 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
         },
         {
             href: "/dashboard/employees",
-            label: "Master Pegawai",
+            label: "Daftar Pegawai",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -45,7 +45,7 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
         },
         {
             href: "/dashboard/signing-officials",
-            label: "Master Pejabat",
+            label: "Daftar Pejabat",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -132,7 +132,9 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                             <line x1="3" x2="21" y1="10" y2="10" />
                         </svg>
                     </div>
-                    <span className="font-semibold text-foreground">Cuti App</span>
+                    <span className="max-w-[150px] text-xs font-semibold leading-tight text-foreground sm:text-sm">
+                        e-Cuti Lapas Gunung Sugih
+                    </span>
                 </div>
                 <ThemeToggle />
             </header>
@@ -166,8 +168,10 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                                 </svg>
                             </div>
                             <div>
-                                <h1 className="text-lg font-bold text-foreground">Cuti App</h1>
-                                <p className="text-xs text-muted-foreground">Sistem Pengajuan Cuti</p>
+                                <h1 className="max-w-[140px] text-sm font-bold leading-tight text-foreground">
+                                    e-Cuti Lapas Gunung Sugih
+                                </h1>
+                                <p className="text-xs text-muted-foreground">Aplikasi pengajuan cuti</p>
                             </div>
                         </div>
                         <button
@@ -223,20 +227,19 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                     </nav>
                 </div>
 
-                <div className="shrink-0 p-4 border-t border-border">
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="flex min-w-0 flex-1 items-center gap-3">
-                            <div className="w-10 h-10 shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center font-semibold">
-                                {user.name?.charAt(0) || "A"}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-foreground truncate">{user.name}</p>
-                                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                            </div>
+                <div className="shrink-0 border-t border-border p-4 space-y-3">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center font-semibold">
+                            {user.name?.charAt(0) || "A"}
                         </div>
-                        <div className="hidden lg:block shrink-0">
-                            <ThemeToggle />
+                        <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium text-foreground truncate">{user.name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                         </div>
+                    </div>
+                    <div className="flex items-center justify-between rounded-lg bg-muted/40 px-3 py-2">
+                        <span className="text-xs text-muted-foreground">Tema</span>
+                        <ThemeToggle />
                     </div>
                     <form action={onLogout}>
                         <Button

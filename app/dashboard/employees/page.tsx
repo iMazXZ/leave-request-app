@@ -13,7 +13,7 @@ export default async function EmployeesPage() {
         <div className="space-y-6 md:space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Master Data Pegawai</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Daftar Pegawai</h1>
                     <p className="text-muted-foreground">Kelola data pegawai untuk pengajuan cuti</p>
                 </div>
                 <Link href="/dashboard/employees/new">

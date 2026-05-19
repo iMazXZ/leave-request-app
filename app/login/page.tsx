@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -44,15 +45,17 @@ export default function LoginPage() {
 
             <Card className="w-full max-w-md">
                 <CardHeader className="text-center space-y-2">
-                    <div className="mx-auto w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-primary-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                        </svg>
+                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-[#0b2346] ring-1 ring-border/50 shadow-sm">
+                        <Image
+                            src="/kemenimipas-logo.jpeg"
+                            alt="Logo Kemenimipas"
+                            width={80}
+                            height={80}
+                            priority
+                            className="h-full w-full object-cover"
+                        />
                     </div>
-                    <CardTitle className="text-2xl font-bold">Login Admin</CardTitle>
+                    <CardTitle className="text-2xl font-bold">e-Cuti Lapas Gunung Sugih</CardTitle>
                     <CardDescription>
                         Masuk untuk mengelola pengajuan cuti
                     </CardDescription>

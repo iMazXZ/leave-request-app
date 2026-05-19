@@ -7,9 +7,7 @@ export default async function SigningOfficialsPage() {
     return (
         <div className="space-y-6 md:space-y-8">
             <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                    Master Pejabat
-                </h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Daftar Pejabat</h1>
                 <p className="text-muted-foreground">
                     Kelola pejabat yang berwenang memberikan cuti
                 </p>

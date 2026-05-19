@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sistem Pengajuan Cuti - Lapas Kelas IIB Gunung Sugih",
-  description: "Aplikasi Pengelolaan Surat Cuti Pegawai",
+  title: "e-Cuti Lapas Gunung Sugih",
+  description: "Aplikasi pengelolaan surat cuti pegawai Lapas Kelas IIB Gunung Sugih",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
