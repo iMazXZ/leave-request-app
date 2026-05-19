@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,19 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
             ),
         },
         {
+            href: "/dashboard/request",
+            label: "Buat Surat Cuti",
+            featured: true,
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="12" x2="12" y1="18" y2="12" />
+                    <line x1="9" x2="15" y1="15" y2="15" />
+                </svg>
+            ),
+        },
+        {
             href: "/dashboard/employees",
             label: "Daftar Pegawai",
             icon: (
@@ -51,18 +65,6 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
                     <polyline points="16 11 18 13 22 9" />
-                </svg>
-            ),
-        },
-        {
-            href: "/dashboard/request",
-            label: "Buat Surat Cuti",
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="12" x2="12" y1="18" y2="12" />
-                    <line x1="9" x2="15" y1="15" y2="15" />
                 </svg>
             ),
         },
@@ -124,13 +126,14 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                     </svg>
                 </button>
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-primary-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                            <line x1="16" x2="16" y1="2" y2="6" />
-                            <line x1="8" x2="8" y1="2" y2="6" />
-                            <line x1="3" x2="21" y1="10" y2="10" />
-                        </svg>
+                    <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-[#0b2346]">
+                        <Image
+                            src="/kemenimipas-logo.jpeg"
+                            alt="Logo Kemenimipas"
+                            width={32}
+                            height={32}
+                            className="h-full w-full object-cover"
+                        />
                     </div>
                     <span className="max-w-[150px] text-xs font-semibold leading-tight text-foreground sm:text-sm">
                         e-Cuti Lapas Gunung Sugih
@@ -159,13 +162,14 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                 <div className="flex-1 overflow-y-auto p-6 pb-4">
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-primary-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-                                    <line x1="16" x2="16" y1="2" y2="6" />
-                                    <line x1="8" x2="8" y1="2" y2="6" />
-                                    <line x1="3" x2="21" y1="10" y2="10" />
-                                </svg>
+                            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[#0b2346]">
+                                <Image
+                                    src="/kemenimipas-logo.jpeg"
+                                    alt="Logo Kemenimipas"
+                                    width={40}
+                                    height={40}
+                                    className="h-full w-full object-cover"
+                                />
                             </div>
                             <div>
                                 <h1 className="max-w-[140px] text-sm font-bold leading-tight text-foreground">
@@ -193,7 +197,9 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
                                 onClick={() => setIsOpen(false)}
                                 className={`
                                     flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                                    ${isActive(item.href)
+                                    ${item.featured && !isActive(item.href)
+                                        ? "border border-primary/20 bg-primary/10 text-primary font-medium hover:bg-primary/15"
+                                        : isActive(item.href)
                                         ? "bg-primary text-primary-foreground"
                                         : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                     }
